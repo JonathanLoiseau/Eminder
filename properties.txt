@@ -1,0 +1,4 @@
+nbCase=
+nbEssai=
+nbMaster=
+debug=
