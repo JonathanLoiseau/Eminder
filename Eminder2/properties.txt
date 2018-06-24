@@ -1,4 +1,0 @@
-nbCase=
-nbEssai=
-nbMaster=
-debug=
