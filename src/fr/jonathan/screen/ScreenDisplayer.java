@@ -11,20 +11,35 @@ import org.apache.logging.log4j.Logger;
 
 import fr.jonathan.game.MasterMind;
 import fr.jonathan.game.PlusOuMoins;
-import fr.jonathan.plus.Config;
-import fr.jonathan.plus.MasterNumberException;
-import fr.jonathan.plus.Mode;
-import fr.jonathan.plus.Props;
+import fr.jonathan.utility.Config;
+import fr.jonathan.utility.MasterNumberException;
+import fr.jonathan.utility.Mode;
+import fr.jonathan.utility.Props;
 
-
+/**
+ * Classe servant a naviguer entre les différents écrans du jeux
+ * @author Joe
+ *
+ */
 public class ScreenDisplayer {
+	/**
+	 * Permet de savoir si le jeux actuel est MasterMind(false) ou PlusOuMoins(true)
+	 */
 	private boolean  isPlus;
+	/**
+	 *  Le mode de jeux (challenger, defenseur, duel) {@link Mode}
+	 */
 	private Mode m;
 	private static final Logger logger = LogManager.getLogger(ScreenDisplayer.class);
 	//private Props propert = new Props();
 
+	/**
+	 * Affiche l'écran de démarage
+	 * @param scan scanner pour choisir le jeux
+	 * @param conf la configuration du jeux (nombre d'essai,nombre de case,nombre de chiffre utilisable et mode developpeur ou joueur)
+	 */
 	public void homeScreen(Scanner scan , Config conf  ){
-		
+
 		String str = " <<<<<<E-MINDER>>>>>>\n\n";
 		str+= "Bienvenue et amusez vous!!\n\n";
 		str += "Veuillez choisir votre jeux\n";
@@ -50,6 +65,11 @@ public class ScreenDisplayer {
 		break;
 		}
 	}
+	/**
+	 * Choix du mode par l'utilisateur
+	 * @param scan scanner pour choisir le mode
+	 * @param conf la configuration du jeux (nombre d'essai,nombre de case,nombre de chiffre utilisable et mode developpeur ou joueur)
+	 */
 	public void modeSelector( Scanner scan, Config conf) {
 		if (isPlus) {
 			String str = "\n\n< Plus Ou Moins >\n\n";
@@ -126,7 +146,12 @@ public class ScreenDisplayer {
 
 
 	}
-
+	/**
+	 * Affiche l'écran Game Over
+	 * @param scan scanner choix de l'action a effectué après une défaite
+	 * @param m Le mode de jeux (challenger, defenseur, duel) 
+	 * @param conf la configuration du jeux (nombre d'essai,nombre de case,nombre de chiffre utilisable et mode developpeur ou joueur) 
+	 */
 	public void gameOver(Scanner scan , Mode m,Config conf) {
 		String str = "<<<<< GAME OVER>>>>\n";
 		str+= " Voulez vous : \n";
@@ -138,7 +163,12 @@ public class ScreenDisplayer {
 		replay(scan ,m, conf);
 
 	}
-
+	/**
+	 * Affiche l'écran de victoire
+	 * @param scan scanner choix de l'action a effectué après une victoire.
+	 * @param m Le mode de jeux (challenger, defenseur, duel)
+	 * @param conf la configuration du jeux (nombre d'essai,nombre de case,nombre de chiffre utilisable et mode developpeur ou joueur)
+	 */
 	public void succesScreen(Scanner scan , Mode m, Config conf) {
 		String str = "<<<<< VICTOIRE>>>>\n";
 		str+= " Voulez vous : \n";
@@ -149,7 +179,12 @@ public class ScreenDisplayer {
 
 		replay(scan , m, conf );
 	}
-
+	/**
+	 * Affiche l'écran d'égalité
+	 * @param scan scanner choix de l'action a effectué après un draw
+	 * @param m Le mode de jeux (challenger, defenseur, duel)
+	 * @param conf la configuration du jeux (nombre d'essai,nombre de case,nombre de chiffre utilisable et mode developpeur ou joueur)
+	 */
 	public void drawScreen (Scanner scan ,Mode m, Config conf) {
 		String str = "<<<<< MATCH NUL>>>>\n";
 		str+= " Voulez vous : \n";
@@ -161,6 +196,12 @@ public class ScreenDisplayer {
 		replay(scan, m, conf);
 
 	}
+	/**
+	 * Ecran affiché à la fin d'un partie
+	 * @param scan scanner choix de l'action a effectué en fin de partie
+	 * @param m Le mode de jeux (challenger, defenseur, duel)
+	 * @param conf la configuration du jeux (nombre d'essai,nombre de case,nombre de chiffre utilisable et mode developpeur ou joueur)
+	 */
 	public void replay(Scanner scan ,Mode m, Config conf) {
 		String choix = scan.next();
 
@@ -187,6 +228,11 @@ public class ScreenDisplayer {
 			replay(scan,m, conf);
 		}
 	}
+	/**
+	 * permet de relancer une partie dans le bon mode sans nouvelle saisie utilisateur en utilisant le mode en cour.
+	 * @param m Le mode de jeux (challenger, defenseur, duel)
+	 * @param conf la configuration du jeux (nombre d'essai,nombre de case,nombre de chiffre utilisable et mode developpeur ou joueur)
+	 */
 	public void modeChoice(Mode m, Config conf) {
 		switch (m) {
 		case CHAL:
@@ -200,20 +246,8 @@ public class ScreenDisplayer {
 			MasterMind masta = new MasterMind(m, conf);// a changer!!
 		}
 	}
+}
 
-	public Mode getMode() {
-		return m;
-	}
-
-	public void setMode(Mode mode) {
-		this.m= mode;
-	}
-
-
-	
-
-		}
-	
 
 
 
